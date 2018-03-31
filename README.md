@@ -15,6 +15,9 @@ Aplikacja będzie umożliwiała dodawanie tytułu książki, autora, gatunek, oc
 ### Uczestnicy projektu
 
 Jędrzej Jankowski – KrDUIs1011, 186649 – kierownik projektu
+
 Kamil Gawin – KrDUIs1011, 186367
+
 Sylwia Gutowska – KrDUIs1011, 186538
+
 Karol Juszyński - KrDUIs1011, 186720
