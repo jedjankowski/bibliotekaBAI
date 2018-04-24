@@ -51,7 +51,7 @@
             console.log(firebaseUser);
             btnLogout.classList.remove('hide');
         } else {
-            console.log('NIEZAREJESTROWANY');
+            console.log('wylogowany');
             btnLogout.classList.add('hide');
         }
     });
