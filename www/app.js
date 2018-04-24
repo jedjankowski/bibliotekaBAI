@@ -28,7 +28,7 @@
         promise.catch(e => console.log(e.message));
     });
 
-    //rejestracja listener
+    //rejestracja - listener
     //do zrobnienia: sprawdzanie czy mail jest poprawnie wpisany (wzor@mail.com)
     btnSignUp.addEventListener('click', e => {
         const email = txtEmail.value;
