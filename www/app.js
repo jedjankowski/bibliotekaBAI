@@ -16,7 +16,7 @@
     const btnSignUp = document.getElementById('btnSignUp');
     const btnLogout = document.getElementById('btnLogout');
 
-    //login event
+    //login event listener
     btnLogin.addEventListener('click', e => {
         //pobieranie maila i hasla
         const email = txtEmail.value;
@@ -28,7 +28,7 @@
         promise.catch(e => console.log(e.message));
     });
 
-    //rejestracja
+    //rejestracja listener
     //do zrobnienia: sprawdzanie czy mail jest poprawnie wpisany (wzor@mail.com)
     btnSignUp.addEventListener('click', e => {
         const email = txtEmail.value;
