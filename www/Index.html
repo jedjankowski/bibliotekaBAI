@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
     <meta charset="UTF-8">
     <title>Moja biblioteka</title>
-    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
-    <script>
-        //  Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyDR2IJ3Ea-4p2I1BQs7AuJDs0EjCEE4IAM",
-            authDomain: "baiprojekt-54e2b.firebaseapp.com",
-            databaseURL: "https://baiprojekt-54e2b.firebaseio.com",
-            projectId: "baiprojekt-54e2b",
-            storageBucket: "baiprojekt-54e2b.appspot.com",
-            messagingSenderId: "726560257409"
-        };
-        firebase.initializeApp(config);
-    </script>
 </head>
 <body>
 <p>Zaloguj się</p>
+
+    <div class="container">
+        <input id="txtEmail" type="email" placeholder="Email">
+        <input id="txtPassword" type="password" placeholder="Password">
+
+        <button id="btnLogin" class="btn btn-action">
+            Zaloguj sie
+        </button>
+
+        <button id="btnSignUp" class="btn btn-secondary">
+            Zarejestruj sie
+        </button>
+
+        <button id="btnLogout" class="btn btn-action hide">
+            Wyloguj
+        </button>
+    </div>
+
+    <script src="app.js"></script>
 
 
 </body>
