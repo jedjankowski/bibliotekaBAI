@@ -1,34 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
     <meta charset="UTF-8">
-    <title>Moja biblioteka</title>
+    <title>Sample FirebaseUI App</title>
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        const config = {
+            apiKey: "AIzaSyDR2IJ3Ea-4p2I1BQs7AuJDs0EjCEE4IAM",
+            authDomain: "baiprojekt-54e2b.firebaseapp.com",
+            databaseURL: "https://baiprojekt-54e2b.firebaseio.com",
+            projectId: "baiprojekt-54e2b",
+            storageBucket: "baiprojekt-54e2b.appspot.com",
+            messagingSenderId: "726560257409"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.7.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.7.0/firebaseui.css" />
+    <script type="text/javascript">
+        // FirebaseUI config.
+        const uiConfig = {
+
+            //tutaj odnosnik do strony, ktora sie otworzy po zalogowaniu!!!!!!!!
+            signInSuccessUrl: '<url-to-redirect-to-on-success>',  //   <====================
+            signInOptions: [
+                // Leave the lines as is for the providers you want to offer your users.
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+                firebase.auth.EmailAuthProvider.PROVIDER_ID,
+            ],
+            // Terms of service url.
+            tosUrl: '<your-tos-url>'
+        };
+
+        // Initialize the FirebaseUI Widget using Firebase.
+        const ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
 </head>
 <body>
-<p>Zaloguj się</p>
-
-    <div class="container">
-        <input id="txtEmail" type="email" placeholder="Email">
-        <input id="txtPassword" type="password" placeholder="Password">
-
-        <button id="btnLogin" class="btn btn-action">
-            Zaloguj sie
-        </button>
-
-        <button id="btnSignUp" class="btn btn-secondary">
-            Zarejestruj sie
-        </button>
-
-        <button id="btnLogout" class="btn btn-action hide">
-            Wyloguj
-        </button>
-    </div>
-
-    <script src="app.js"></script>
-
-
+<!-- The surrounding HTML is left untouched by FirebaseUI.
+     Your app may use that space for branding, controls and other customizations.-->
+<h1>Moja biblioteka</h1>
+<h2>Zaloguj się</h2>
+<div id="firebaseui-auth-container"></div>
 </body>
 </html>
