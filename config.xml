@@ -1,0 +1,14 @@
+<widget id="com.example.hello" version="0.0.1">
+    <name>Moja biblioteka</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author>
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <platform name="android">
+        <resource-file src="google-services.json" target="google-services.json" />
+    </platform>
+</widget>
