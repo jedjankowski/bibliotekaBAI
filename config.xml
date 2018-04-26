@@ -36,6 +36,7 @@
         </host>
     </universal-links>
     <preference name="AndroidLaunchMode" value="singleTask" />
+    <plugin name="cordova-plugin-device" spec="~1.1.4" />
 
 
 </widget>
