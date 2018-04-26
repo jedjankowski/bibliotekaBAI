@@ -28,7 +28,14 @@
     <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />
     <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
-    <plugin name="Storage" value="org.apache.cordova.Storage" />
+
+    <universal-links>
+        <host name="ct27s.app.goo.gl" scheme="https" />
+        <host name="baiprojekt-54e2b.firebaseapp.com" scheme="https">
+            <path url="/__/auth/callback"/>
+        </host>
+    </universal-links>
+    <preference name="AndroidLaunchMode" value="singleTask" />
 
 
 </widget>
