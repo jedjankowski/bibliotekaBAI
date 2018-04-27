@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Moja biblioteka</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
     <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -23,7 +27,7 @@
         var uiConfig = {
 
             //tutaj odnosnik do strony, ktora sie otworzy po zalogowaniu!!!!!!!!
-            signInSuccessUrl: '<url-to-redirect-to-on-success>',  //   <=====================
+            signInSuccessUrl: 'loggedIn.html',  //   <=====================
             signInOptions: [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,

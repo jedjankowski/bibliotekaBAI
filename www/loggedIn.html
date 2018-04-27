@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDR2IJ3Ea-4p2I1BQs7AuJDs0EjCEE4IAM",
+            authDomain: "baiprojekt-54e2b.firebaseapp.com",
+            databaseURL: "https://baiprojekt-54e2b.firebaseio.com",
+            projectId: "baiprojekt-54e2b",
+            storageBucket: "baiprojekt-54e2b.appspot.com",
+            messagingSenderId: "726560257409"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+</head>
+<body>
+
+<p>Witaj</p>
+
+<script>
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            document.body.innerHTML = '<p> Witaj, ' + user.displayName + ' twój email to: ' + user.email +
+            '<br>' + '<a href="Book.html" class="btn waves-effect waves-light">Książki</a>' +
+            '<br><br>' + '<button onclick="" class="btn waves-effect waves-light">Znajomi</button>';
+        }
+    } );
+
+</script>
+
+
+
+</body>
+</html>
