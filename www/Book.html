@@ -31,24 +31,24 @@
         <div class="row">
             <div class="input-field col s12">
                 <input id="book_title" type="text" class="validate">
-                <label for="book_title">Book title</label>
+                <label for="book_title">Tytuł</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <input id="author" type="text" class="validate">
-                <label for="author">Author</label>
+                <label for="author">Autor</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <input id="description" type="text" class="validate">
-                <label for="description">Description</label>
+                <label for="description">Opis</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <select class="browser-default">
+                <select id="genre" class="browser-default">
                     <option value="" disabled selected>Gatunek</option>
                     <option value="1">Akcja</option>
                     <option value="2">Kryminał</option>
@@ -63,8 +63,7 @@
         </div>
         <div class="row">
             <div class="col s12">
-                <button onclick="addBook()" class="btn waves-effect waves-light">Add Book
-                </button>
+                <button onclick="addBook()" class="btn waves-effect waves-light">Dodaj książkę</button>
             </div>
         </div>
     </div>
@@ -75,9 +74,10 @@
         <table>
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Author</th>
-                <th>Description</th>
+                <th>Tytuł</th>
+                <th>Autor</th>
+                <th>Opis</th>
+                <th>Gatunek</th>
             </tr>
             </thead>
 
@@ -92,15 +92,18 @@
         var title = document.getElementById('book_title').value;
         var author = document.getElementById('author').value;
         var description = document.getElementById('description').value;
+        var genre = document.getElementById('genre').value;
 
         console.log(title);
         console.log(author);
         console.log(description);
+        console.log(genre);
 
         firebase.database().ref('books/'+md5(title)).set({
                 title: title,
                 author: author,
-                description: description
+                description: description,
+                genre: genre
 
         })
         console.log("Book saved to firebase database");
@@ -114,16 +117,18 @@
         var titleCell = newRow.insertCell(0);
         var authorCell = newRow.insertCell(1);
         var descriptionCell = newRow.insertCell(2);
+        var genreCell = newRow.insertCell(3);
 
         titleCell.appendChild(document.createTextNode(title));
         authorCell.appendChild(document.createTextNode(author));
         descriptionCell.appendChild(document.createTextNode(description));
+        genreCell.appendChild(document.createTextNode(genre));
     }
 
     function feedBookTable(){
         firebase.database().ref('/books/').on("child_added", function(snapshot, prevChildKey) {
             var newBook = snapshot.val();
-            appendRow(newBook.title, newBook.author, newBook.description);
+            appendRow(newBook.title, newBook.author, newBook.description, newBook.genre);
         });
     }
 </script>
