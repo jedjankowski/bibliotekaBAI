@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script src="js\md5.js"></script>
+    <script>
+        const config = {
+            apiKey: "AIzaSyDR2IJ3Ea-4p2I1BQs7AuJDs0EjCEE4IAM",
+            authDomain: "baiprojekt-54e2b.firebaseapp.com",
+            databaseURL: "https://baiprojekt-54e2b.firebaseio.com",
+            projectId: "baiprojekt-54e2b",
+            storageBucket: "baiprojekt-54e2b.appspot.com",
+            messagingSenderId: "726560257409"
+        };
+        firebase.initializeApp(config);
+
+
+    </script>
+</head>
+<body>
+
+
+<div class="row">
+    <div class="col s12">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="book_title" type="text" class="validate">
+                <label for="book_title">Book title</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="author" type="text" class="validate">
+                <label for="author">Author</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="description" type="text" class="validate">
+                <label for="description">Description</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <select class="browser-default">
+                    <option value="" disabled selected>Gatunek</option>
+                    <option value="1">Akcja</option>
+                    <option value="2">Kryminał</option>
+                    <option value="3">Science fiction</option>
+                    <option value="4">Romans</option>
+                    <option value="5">Poezja</option>
+                    <option value="6">Historia</option>
+                    <option value="7">Biografia</option>
+                    <option value="8">Poradnik</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <button onclick="addBook()" class="btn waves-effect waves-light">Add Book
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12">
+
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+
+            <tbody id="book_table">
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    feedBookTable();
+    function addBook(){
+        var title = document.getElementById('book_title').value;
+        var author = document.getElementById('author').value;
+        var description = document.getElementById('description').value;
+
+        console.log(title);
+        console.log(author);
+        console.log(description);
+
+        firebase.database().ref('books/'+md5(title)).set({
+                title: title,
+                author: author,
+                description: description
+
+        })
+        console.log("Book saved to firebase database");
+    }
+
+
+    function appendRow(title, author, description){
+        var tableRef = document.getElementById('book_table');
+        var newRow = tableRef.insertRow(0);
+
+        var titleCell = newRow.insertCell(0);
+        var authorCell = newRow.insertCell(1);
+        var descriptionCell = newRow.insertCell(2);
+
+        titleCell.appendChild(document.createTextNode(title));
+        authorCell.appendChild(document.createTextNode(author));
+        descriptionCell.appendChild(document.createTextNode(description));
+    }
+
+    function feedBookTable(){
+        firebase.database().ref('/books/').on("child_added", function(snapshot, prevChildKey) {
+            var newBook = snapshot.val();
+            appendRow(newBook.title, newBook.author, newBook.description);
+        });
+    }
+</script>
+</body>
+</html>
