@@ -5,6 +5,7 @@
     <title>Main</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
@@ -27,11 +28,12 @@
 <script>
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            document.body.innerHTML = 'Witaj, ' + user.displayName + ' twój email to: ' + user.email +
+            document.body.innerHTML = '<h5 style="color:dimgrey; text-align: center;">' + 'Witaj, ' + user.displayName +
+                '<br>' + 'Twój e-mail to: ' + user.email + '</h5>' +
             '<p class="center-align">\n' +
-                '<a href="Book.html" style="width:300px;" class="btn-large waves-effect waves-light">Książki</a>' + '<br><br>' +
-                '<a href="" style="width:300px;" class="btn-large waves-effect waves-light">Znajomi</a>' + '<br><br>' +
-                '<a href="" style="width:300px;" class="btn-large waves-effect waves-light">Kalendarz</a>\n' +
+                '<a href="Book.html" style="width:200px;" class="btn-large waves-effect waves-light"><i class="material-icons right">library_books</i>Książki</a>' + '<br><br>' +
+                '<a href="" style="width:200px;" class="btn-large waves-effect waves-light"><i class="material-icons right">people</i>Znajomi</a>' + '<br><br>' +
+                '<a href="" style="width:200px;" class="btn-large waves-effect waves-light"><i class="material-icons right">date_range</i>Kalendarz</a>\n' +
             '</p>';
         }
     } );
