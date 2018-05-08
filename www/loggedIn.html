@@ -24,14 +24,13 @@
 </head>
 <body>
 
-<p>Witaj</p>
-
 <script>
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             document.body.innerHTML = '<p> Witaj, ' + user.displayName + ' twój email to: ' + user.email +
-            '<br>' + '<a href="Book.html" class="btn waves-effect waves-light">Książki</a>' +
-            '<br><br>' + '<button onclick="" class="btn waves-effect waves-light">Znajomi</button>';
+            '<br><br>' + '<a href="Book.html" class="btn waves-effect waves-light">Książki</a>' +
+            '<br><br>' + '<button onclick="" class="btn waves-effect waves-light">Znajomi</button>' +
+             '<br><br>' +  '<a href="" class="btn waves-effect waves-light">Kalendarz</a>'
         }
     } );
 
