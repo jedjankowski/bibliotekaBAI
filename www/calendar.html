@@ -5,6 +5,19 @@
     <title>Wypożyczone książki</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyDR2IJ3Ea-4p2I1BQs7AuJDs0EjCEE4IAM",
+            authDomain: "baiprojekt-54e2b.firebaseapp.com",
+            databaseURL: "https://baiprojekt-54e2b.firebaseio.com",
+            projectId: "baiprojekt-54e2b",
+            storageBucket: "baiprojekt-54e2b.appspot.com",
+        };
+        firebase.initializeApp(config);
+        var database = firebase.database();
+
+    </script>
 </head>
 <body>
 
@@ -24,21 +37,35 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input type="date" class="datepicker">
+                <input id="date" type="date" class="datepicker">
                 <label>Data zwrotu</label>
             </div>
         </div>
-
         <div class="row">
             <div class="col s12">
-                <button class="btn waves-effect waves-light">Dodaj</button>
+                <button onclick="addDate()" class="btn waves-effect waves-light">Dodaj</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    function addDate(){
+        var title = document.getElementById('book_title').value;
+        var author = document.getElementById('author').value;
+        var date = document.getElementById('date').value;
 
+        console.log(title);
+        console.log(author);
+        console.log(date);
+
+        firebase.database().ref('users/returnDate/').set({
+            title: title,
+            author: author,
+            date: date
+        })
+        console.log("Book and date saved to firebase database");
+    }
 </script>
 <!-- Tutaj jest prototyp tabelki z aktualnie wypozyczonymi ksiazkami albo cala historia wypozyczen
 <div class="row">
