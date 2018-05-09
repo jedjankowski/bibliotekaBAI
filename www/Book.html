@@ -19,13 +19,10 @@
             messagingSenderId: "726560257409"
         };
         firebase.initializeApp(config);
-
-
     </script>
-
 </head>
-<body>
 
+<body>
 <div class="row">
     <div class="col s12">
         <div class="row">
@@ -45,7 +42,6 @@
                 <input id="description" type="text" class="validate" required>
                 <label for="description">Opis</label>
             </div>
-
         </div>
         <div class="row">
             <div class="input-field col s12">
@@ -70,6 +66,11 @@
                 <button onclick="addBook()" class="btn waves-effect waves-light">Dodaj książkę</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col s12">
+                <button onclick="feedBookTable()" class="btn waves-effect waves-light">feed</button>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">
@@ -90,9 +91,12 @@
         </table>
     </div>
 </div>
+
 <script>
     feedBookTable();
     function addBook(){
+        var user = firebase.auth().currentUser;
+
         var title = document.getElementById('book_title').value;
         var author = document.getElementById('author').value;
         var description = document.getElementById('description').value;
@@ -103,7 +107,7 @@
         console.log(description);
         console.log(genre);
 
-        firebase.database().ref('books/'+md5(title)).set({
+        firebase.database().ref('users/' + user.uid + '/books/'+md5(title)).set({
                 title: title,
                 author: author,
                 description: description,
@@ -112,7 +116,6 @@
         })
         console.log("Book saved to firebase database");
     }
-
 
     function appendRow(title, author, description){
         var tableRef = document.getElementById('book_table');
@@ -143,9 +146,10 @@
             alert ("Wprowadź autora książki!")
     }
 
-
     function feedBookTable(){
-        firebase.database().ref('/books/').on("child_added", function(snapshot, prevChildKey) {
+        var user = firebase.auth().currentUser;
+
+        firebase.database().ref('users/' + user.uid + '/books/').on("child_added", function(snapshot, prevChildKey) {
             var newBook = snapshot.val();
             appendRow(newBook.title, newBook.author, newBook.description, newBook.genre);
         });
