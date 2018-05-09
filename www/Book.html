@@ -22,15 +22,22 @@
 
 
     </script>
+    <script>
+        function fTytul(x)
+        {
+            wzorTytul = /[{1,}\S]/
+            if (!x.value.match(wzorTytul))
+                alert ("Wprowadź tytuł filmu!")
+        }
+    </script>
 </head>
 <body>
-
 
 <div class="row">
     <div class="col s12">
         <div class="row">
             <div class="input-field col s12">
-                <input id="book_title" type="text" class="validate" required>
+                <input id="book_title" type="text" class="validate" onblur="fTytul(this)" required>
                 <label for="book_title">Tytuł</label>
             </div>
         </div>
@@ -45,6 +52,7 @@
                 <input id="description" type="text" class="validate" required>
                 <label for="description">Opis</label>
             </div>
+
         </div>
         <div class="row">
             <div class="input-field col s12">
@@ -58,6 +66,8 @@
                     <option value="6">Historia</option>
                     <option value="7">Biografia</option>
                     <option value="8">Poradnik</option>
+                    <option value="9">Przygodowa</option>
+                    <option value="10">Horror</option>
                 </select>
             </div>
         </div>
