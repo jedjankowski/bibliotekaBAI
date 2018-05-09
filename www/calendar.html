@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wypożyczone książki</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+</head>
+<body>
+
+<div class="row">
+    <div class="col s12">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="book_title" type="text" class="validate"  maxlength="50" onblur="fTytul(this)" required>
+                <label for="book_title">Tytuł</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="author" type="text" class="validate" maxlength="30" onblur="fAutor(this)">
+                <label for="author">Autor</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="date" class="datepicker">
+                <label>Data zwrotu</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12">
+                <button class="btn waves-effect waves-light">Dodaj</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
+<!-- Tutaj jest prototyp tabelki z aktualnie wypozyczonymi ksiazkami albo cala historia wypozyczen
+<div class="row">
+    <div class="col s12">
+
+        <table>
+            <thead>
+            <tr>
+                <th>Tytuł</th>
+                <th>Autor</th>
+                <th>Data zwrotu</th>
+            </tr>
+            </thead>
+
+            <tbody id="book_table">
+            </tbody>
+        </table>
+    </div>
+</div>
+-->
+</body>
+</html>
