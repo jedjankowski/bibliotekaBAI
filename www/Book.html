@@ -45,8 +45,9 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
+                <label>Gatunek</label><br><br>
                 <select id="genre" class="browser-default" required>
-                    <option value="" disabled selected>Gatunek</option>
+                    <option value="" disabled selected>Wybierz gatunek</option>
                     <option value="1">Akcja</option>
                     <option value="2">Kryminał</option>
                     <option value="3">Science fiction</option>
@@ -62,13 +63,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
-                <button onclick="addBook()" class="btn waves-effect waves-light">Dodaj książkę</button>
+            <div class="input-field col s12">
+                <select id="score" class="browser-default">
+                    <option value="" disabled selected>Ocena</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
             </div>
         </div>
         <div class="row">
             <div class="col s12">
-                <button onclick="feedBookTable()" class="btn waves-effect waves-light">feed</button>
+                <button onclick="addBook()" class="btn waves-effect waves-light">Dodaj książkę</button>
             </div>
         </div>
     </div>
@@ -83,6 +96,7 @@
                 <th>Autor</th>
                 <th>Opis</th>
                 <th>Gatunek</th>
+                <th>Ocena</th>
             </tr>
             </thead>
 
@@ -93,7 +107,14 @@
 </div>
 
 <script>
-    feedBookTable();
+    run();
+    function run() {
+        setTimeout(afterTwoSeconds, 700);
+    }
+    function afterTwoSeconds() {
+        feedBookTable();
+    }
+
     function addBook(){
         var user = firebase.auth().currentUser;
 
@@ -101,23 +122,26 @@
         var author = document.getElementById('author').value;
         var description = document.getElementById('description').value;
         var genre = document.getElementById('genre').value;
+        var score = document.getElementById('score').value;
 
         console.log(title);
         console.log(author);
         console.log(description);
         console.log(genre);
+        console.log(score);
 
         firebase.database().ref('users/' + user.uid + '/books/'+md5(title)).set({
                 title: title,
                 author: author,
                 description: description,
-                genre: genre
+                genre: genre,
+                score: score
 
         })
         console.log("Book saved to firebase database");
     }
 
-    function appendRow(title, author, description){
+    function appendRow(title, author, description, genre, score){
         var tableRef = document.getElementById('book_table');
         var newRow = tableRef.insertRow(0);
 
@@ -125,11 +149,13 @@
         var authorCell = newRow.insertCell(1);
         var descriptionCell = newRow.insertCell(2);
         var genreCell = newRow.insertCell(3);
+        var scoreCell = newRow.insertCell(4);
 
         titleCell.appendChild(document.createTextNode(title));
         authorCell.appendChild(document.createTextNode(author));
         descriptionCell.appendChild(document.createTextNode(description));
         genreCell.appendChild(document.createTextNode(genre));
+        scoreCell.appendChild(document.createTextNode(score));
     }
 
     function fTytul(x)
@@ -148,10 +174,9 @@
 
     function feedBookTable(){
         var user = firebase.auth().currentUser;
-
         firebase.database().ref('users/' + user.uid + '/books/').on("child_added", function(snapshot, prevChildKey) {
             var newBook = snapshot.val();
-            appendRow(newBook.title, newBook.author, newBook.description, newBook.genre);
+            appendRow(newBook.title, newBook.author, newBook.description, newBook.genre, newBook.score);
         });
     }
 </script>
