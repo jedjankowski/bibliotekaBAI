@@ -5,7 +5,9 @@
     <title>Wypożyczone książki</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script src="js\md5.js"></script>
     <script>
         var config = {
             apiKey: "AIzaSyDR2IJ3Ea-4p2I1BQs7AuJDs0EjCEE4IAM",
@@ -20,6 +22,8 @@
     </script>
 </head>
 <body>
+
+<a href="loggedIn.html" class="btn-small waves-effect waves-light"><i class="material-icons left">keyboard_backspace</i>Wróć</a><br><br>
 
 <div class="row">
     <div class="col s12">
@@ -54,12 +58,13 @@
         var title = document.getElementById('book_title').value;
         var author = document.getElementById('author').value;
         var date = document.getElementById('date').value;
+        var user = firebase.auth().currentUser;
 
         console.log(title);
         console.log(author);
         console.log(date);
 
-        firebase.database().ref('users/returnDate/').set({
+        firebase.database().ref('users/' + user.uid + '/returnDate/' + md5(title)).set({
             title: title,
             author: author,
             date: date
@@ -67,7 +72,8 @@
         console.log("Book and date saved to firebase database");
     }
 </script>
-<!-- Tutaj jest prototyp tabelki z aktualnie wypozyczonymi ksiazkami albo cala historia wypozyczen
+<h5>Twoje wypożyczone książki</h5>
+
 <div class="row">
     <div class="col s12">
 
@@ -85,6 +91,8 @@
         </table>
     </div>
 </div>
--->
+
+<br><br><a href="loggedIn.html" class="btn-small waves-effect waves-light"><i class="material-icons left">keyboard_backspace</i>Wróć</a>
+
 </body>
 </html>
