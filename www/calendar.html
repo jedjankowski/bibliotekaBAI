@@ -72,7 +72,7 @@
         </table>
     </div>
 </div>
-
+<button onclick="notify()">PUSH</button>
 <br><br><a href="loggedIn.html" class="btn-small waves-effect waves-light"><i class="material-icons left">keyboard_backspace</i>Wróć</a>
 
 <script>
@@ -111,7 +111,7 @@
 
         titleCell.appendChild(document.createTextNode(title));
         authorCell.appendChild(document.createTextNode(author));
-        dateCell.appendChild(document.createTextNode(description));
+        dateCell.appendChild(document.createTextNode(date));
     }
 
     function feedBookTable(){
@@ -121,6 +121,17 @@
             appendRow(newBook.title, newBook.author, newBook.date);
         });
     }
+
+    function notify() {
+        if (Notification.permission !== "granted")
+            Notification.requestPermission();
+        else {
+            var bookReturn = new Notification('Moja biblioteka',
+                {body: "Zbliża się termin oddania książki"}
+            );
+        }
+    }
+
 </script>
 </body>
 </html>
