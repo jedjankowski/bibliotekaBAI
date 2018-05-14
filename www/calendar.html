@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wypożyczone książki</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script src="js\md5.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyDR2IJ3Ea-4p2I1BQs7AuJDs0EjCEE4IAM",
+            authDomain: "baiprojekt-54e2b.firebaseapp.com",
+            databaseURL: "https://baiprojekt-54e2b.firebaseio.com",
+            projectId: "baiprojekt-54e2b",
+            storageBucket: "baiprojekt-54e2b.appspot.com",
+        };
+        firebase.initializeApp(config);
+        var database = firebase.database();
+
+    </script>
+</head>
+<body>
+
+<a href="loggedIn.html" class="btn-small waves-effect waves-light"><i class="material-icons left">keyboard_backspace</i>Wróć</a><br><br>
+
+<div class="row">
+    <div class="col s12">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="book_title" type="text" class="validate"  maxlength="50" onblur="fTytul(this)" required>
+                <label for="book_title">Tytuł</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="author" type="text" class="validate" maxlength="30" onblur="fAutor(this)">
+                <label for="author">Autor</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="date" type="date" class="datepicker">
+                <label>Data zwrotu</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <button onclick="addDate()" class="btn waves-effect waves-light">Dodaj</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h5>Twoje wypożyczone książki</h5>
+
+<div class="row">
+    <div class="col s12">
+
+        <table>
+            <thead>
+            <tr>
+                <th>Tytuł</th>
+                <th>Autor</th>
+                <th>Data zwrotu</th>
+            </tr>
+            </thead>
+
+            <tbody id="borrow_table">
+            </tbody>
+        </table>
+    </div>
+</div>
+<button onclick="notify()">PUSH</button>
+<br><br><a href="loggedIn.html" class="btn-small waves-effect waves-light"><i class="material-icons left">keyboard_backspace</i>Wróć</a>
+
+<script>
+    run();
+    function run() {
+        setTimeout(afterTwoSeconds, 2000);
+    }
+    function afterTwoSeconds() {
+        feedBookTable();
+    }
+    function addDate(){
+        var title = document.getElementById('book_title').value;
+        var author = document.getElementById('author').value;
+        var date = document.getElementById('date').value;
+        var user = firebase.auth().currentUser;
+
+        console.log(title);
+        console.log(author);
+        console.log(date);
+
+        firebase.database().ref('users/' + user.uid + '/returnDate/' + md5(title)).set({
+            title: title,
+            author: author,
+            date: date
+        })
+        console.log("Book and date saved to firebase database");
+    }
+
+    function appendRow(title, author, date){
+        var tableRef = document.getElementById('borrow_table');
+        var newRow = tableRef.insertRow(0);
+
+        var titleCell = newRow.insertCell(0);
+        var authorCell = newRow.insertCell(1);
+        var dateCell = newRow.insertCell(2);
+
+        titleCell.appendChild(document.createTextNode(title));
+        authorCell.appendChild(document.createTextNode(author));
+        dateCell.appendChild(document.createTextNode(date));
+    }
+
+    function feedBookTable(){
+        var user = firebase.auth().currentUser;
+        firebase.database().ref('users/' + user.uid + '/returnDate/').on("child_added", function(snapshot, prevChildKey) {
+            var newBook = snapshot.val();
+            appendRow(newBook.title, newBook.author, newBook.date);
+        });
+    }
+
+    function notify() {
+        if (Notification.permission !== "granted")
+            Notification.requestPermission();
+        else {
+            var bookReturn = new Notification('Moja biblioteka',
+                {body: "Zbliża się termin oddania książki"}
+            );
+        }
+    }
+
+</script>
+</body>
+</html>
