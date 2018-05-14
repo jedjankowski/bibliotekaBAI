@@ -27,19 +27,19 @@
     <div class="col s12">
         <div class="row">
             <div class="input-field col s12">
-                <input id="book_title" type="text" class="validate"  maxlength="50" onblur="fTytul(this)" required/>
+                <input id="book_title" type="text" class="validate"  maxlength="50" onblur="fTytul(this)"/>
                 <label for="book_title">Tytuł</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="author" type="text" class="validate" maxlength="30" onblur="fAutor(this)" required/>
+                <input id="author" type="text" class="validate" maxlength="30" onblur="fAutor(this)"/>
                 <label for="author">Autor</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="description" type="text" class="validate" required/>
+                <input id="description" type="text" class="validate" onblur="fOpis(this)"/>
                 <label for="description">Opis</label>
             </div>
         </div>
@@ -171,6 +171,12 @@
         if (!x.value.match(wzorAutor))
             alert ("Wprowadź autora książki!")
     }
+
+    function fOpis(x)
+    {
+        wzorOpis =/[{1,}\S]/
+        if (!x.value.match(wzorOpis))
+            alert ("Wprowadź opis książki!")
 
     function feedBookTable(){
         var user = firebase.auth().currentUser;
