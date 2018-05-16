@@ -99,6 +99,7 @@
                 <th>Opis</th>
                 <th>Gatunek</th>
                 <th>Ocena</th>
+                <th>Data oceny</th>
             </tr>
             </thead>
 
@@ -112,14 +113,15 @@
 <script>
     run();
     function run() {
-        setTimeout(afterTwoSeconds, 700);
+        setTimeout(wait, 2000);
     }
-    function afterTwoSeconds() {
+    function wait() {
         feedBookTable();
     }
 
     function addBook(){
         var user = firebase.auth().currentUser;
+        var date = new Date().toJSON().slice(0,10).replace(/-/g,'/');
 
         var title = document.getElementById('book_title').value;
         var author = document.getElementById('author').value;
@@ -138,13 +140,14 @@
                 author: author,
                 description: description,
                 genre: genre,
-                score: score
+                score: score,
+                date: date
 
         })
         console.log("Book saved to firebase database");
     }
 
-    function appendRow(title, author, description, genre, score){
+    function appendRow(title, author, description, genre, score, date){
         var tableRef = document.getElementById('book_table');
         var newRow = tableRef.insertRow(0);
 
@@ -153,40 +156,40 @@
         var descriptionCell = newRow.insertCell(2);
         var genreCell = newRow.insertCell(3);
         var scoreCell = newRow.insertCell(4);
+        var dateCell = newRow.insertCell(5);
 
         titleCell.appendChild(document.createTextNode(title));
         authorCell.appendChild(document.createTextNode(author));
         descriptionCell.appendChild(document.createTextNode(description));
         genreCell.appendChild(document.createTextNode(genre));
         scoreCell.appendChild(document.createTextNode(score));
+        dateCell.appendChild(document.createTextNode(date));
     }
-
-    function fTytul(x)
-    {
-        wzorTytul = /[{1,}\S]/
-        if (!x.value.match(wzorTytul))
-            alert ("Wprowadź tytuł filmu!")
-    }
-
-    function fAutor(x)
-    {
-        wzorAutor =/[{1,}\S]/
-        if (!x.value.match(wzorAutor))
-            alert ("Wprowadź autora książki!")
-    }
-
-    function fOpis(x)
-    {
-        wzorOpis =/[{1,}\S]/
-        if (!x.value.match(wzorOpis))
-            alert ("Wprowadź opis książki!")
 
     function feedBookTable(){
         var user = firebase.auth().currentUser;
         firebase.database().ref('users/' + user.uid + '/books/').on("child_added", function(snapshot, prevChildKey) {
             var newBook = snapshot.val();
-            appendRow(newBook.title, newBook.author, newBook.description, newBook.genre, newBook.score);
+            appendRow(newBook.title, newBook.author, newBook.description, newBook.genre, newBook.score, newBook.date);
         });
+    }
+
+    function fTytul(x) {
+        wzorTytul = /[{1,}\S]/
+        if (!x.value.match(wzorTytul))
+            alert ("Wprowadź tytuł filmu!")
+    }
+
+    function fAutor(x) {
+        wzorAutor =/[{1,}\S]/
+        if (!x.value.match(wzorAutor))
+            alert ("Wprowadź autora książki!")
+    }
+
+    function fOpis(x) {
+        wzorOpis = /[{1,}\S]/
+        if (!x.value.match(wzorOpis))
+            alert("Wprowadź opis książki!")
     }
 </script>
 </body>
