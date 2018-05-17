@@ -7,7 +7,7 @@
       "storage.rules",
       "functions"
     ],
-    "headers": [{
+    "headers":  [{
       "source" : "**/*.@(js|html)",
       "headers" : [ {
         "key" : "Cache-Control",
