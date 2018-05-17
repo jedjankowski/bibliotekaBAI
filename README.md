@@ -1,6 +1,6 @@
 ## Strona główna aplikacji Moja biblioteka
 
-<center>![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/logo1.png)</center>
+![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/logo1.png)
 
 ## Spis Treści
 1. Opis aplikacji
@@ -25,8 +25,11 @@ Aplikacja będzie umożliwiała dodawanie tytułu książki, autora, gatunek, oc
 
 ### Prototyp aplikacji
 Prototyp aplikacji został zaprojektowany poprzez Marvelapp
+
 [Prototyp aplikacji](https://marvelapp.com/16c315gg)
+
 Przykładowe
+
 ![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/prototyp1.png)
 ![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/prototyp2.png)
 ![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/prototyp3.png)
@@ -43,11 +46,13 @@ Sylwia Gutowska – KrDUIs1011, 186538
 
 Karol Juszyński - KrDUIs1011, 186720
 
-###
-Linki:
+### Linki:
 
 [Link do systemu zarządzania](https://trello.com/b/WqMTaqqC/bai-projekt)
 
 [Link do prototypu aplikacji](https://marvelapp.com/16c315gg)
+
+[Arkusz czasu pracy]()
+
 
 
