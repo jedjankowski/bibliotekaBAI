@@ -1,5 +1,7 @@
 ## Strona główna aplikacji Moja biblioteka
 
+![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/logo1.png)
+
 ## Spis Treści
 1. Opis aplikacji
 2. Funkcjonalności aplikacji
@@ -24,7 +26,7 @@ Aplikacja będzie umożliwiała dodawanie tytułu książki, autora, gatunek, oc
 ### Prototyp aplikacji
 Prototyp aplikacji został zaprojektowany poprzez Marvelapp
 
-<iframe src="https://marvelapp.com/16c315gg?emb=1&iosapp=false&frameless=false" width="390" height="755" allowTransparency="true" frameborder="0"></iframe>
+
 
 ### Uczestnicy projektu
 
@@ -39,7 +41,8 @@ Karol Juszyński - KrDUIs1011, 186720
 ###
 Linki:
 
-Linki do systemu zarządzania 
-https://trello.com/b/WqMTaqqC/bai-projekt
+[Linki do systemu zarządzania](https://trello.com/b/WqMTaqqC/bai-projekt)
+
+[Link do prototypu aplikacji](https://marvelapp.com/16c315gg)
 
 
