@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
-    <title>Znajomi</title>
+    <title>Title</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Compiled and minified JavaScript -->
+    <script>
+        var query = window.location.search;
+
+        if (query.substring(0, 1) == '?') {
+            query = query.substring(1);
+        }
+        var data = query;
+        console.log(data);
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
     <script>
@@ -23,107 +31,79 @@
     </script>
 </head>
 
-
-<meta charset="UTF-8">
-<title>Znajomi</title>
-
-
-</head>
-
 <body>
-<a href="loggedIn.html" class="btn-small waves-effect waves-light"><i class="material-icons left">keyboard_backspace</i>Wróć</a><br><br>
-<h1> Panel społecznościowy </h1>
-<style>
-    h1 {
-        color: 3399 ff;
-        font-size: 22pt;
-        letter-spacing: 1pt;
-        font-family: arial;
+
+<div class="row">
+    <div class="col s12">
+        <table>
+            <thead>
+            <tr>
+                <th>Użytkownik</th>
+                <th>Wiadomość</th>
+            </tr>
+            </thead>
+
+            <tbody id="book_table">
+            </tbody>
+        </table>
+    </div>
+</div>
+<h5 style="color:dimgrey">Wiadomość</h5>
+<div class="row">
+    <div class="col s12">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="message" type="text" class="validate"  />
+                <button onclick="addBook()" class="btn waves-effect waves-light">Dodaj książkę</button>
+                <label for="message">Wiadomość</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    run();
+    function run() {
+        setTimeout(wait, 2000);
     }
-</style>
-<center>
-    <table border="4" bordercolor="#996699" cellpadding="4">
-        <caption align="top">Lista Twoich znajomych</caption>
-        <style> caption {
-            font-size: 16pt;
-            font-family: arial;
-            font-style: bold;
-        } </style>
-        <style> caption {
-            font-size: 16pt;
-            font-family: arial;
-            font-style: bold;
-        } </style>
-        <tr>
-            <th>Imie</th>
+    function wait() {
+        feedBookTable();
+    }
 
-            <style> td {
-                font-family: arial;
-                font-size: 12pt;
-            } </style>
-        </tr>
-        <tr>
-            <th>Nazwisko</th>
-            <style> th {
-                font-family: arial;
-                font-style: bold;
-                font-size: 14pt;
-            }</style>
-        </tr>
-    </table>
-    <style> table {
-        margin-top: 100px;
-    }</style>
-</center>
-<center>
-    <h2>
-        <input type="text" id="name" placeholder="Imie"><br/>
-        <h3>
-            <input type="password" id="surname" placeholder="Nazwisko"><br/>
-        </h3>
-        <style>h3 {
-            margin-top: -8px;
-        }</style>
-        <input type="button" value="Dodaj znajomego" onClick="clicked()">
-    </h2>
-    <style>h2 {
-        margin-top: 40px;
-    }</style>
-</center>
+    function addBook(){
+        var user = firebase.auth().currentUser;
+        var message = document.getElementById('message').value;
 
-</center>
+        console.log(message);
 
-<h4>
-    Poleć ksiązke znajomemu
-</h4>
+        firebase.database().ref('messages/' + user.uid + '/conversation/' + md5(message)).set({
+            message: message,
+            //useruser: useruser
 
-<div class="row">
-    <div class="input-field col s12">
-        <label>Znajomy</label><br><br>
-        <select id="genre" class="browser-default" required>
-            <option value="" disabled selected>Wybierz Znajomego</option>
-            <option value="1">Znajomy1</option>
-            <option value="2">Znajomy2</option>
-            <option value="3">Znajomy3</option>
-        </select>
-    </div>
-</div>
+        })
 
-<div class="row">
-    <div class="input-field col s12">
-        <label>Ksiązka</label><br><br>
-        <select  class="browser-default" required>
-            <option value="" disabled selected>Wybierz Ksiązke</option>
-            <option value="1">Ksiązka1</option>
-            <option value="2">Ksiązka2</option>
-            <option value="3">Ksiązka3</option>
-        </select>
-    </div>
-</div>
-<h6><input type="button" value="Polecam" onClick="clicked()">
+        console.log("Book saved to firebase database");
+    }
 
-</h6>
+    function appendRow(message){
+        var user = firebase.auth().currentUser;
+        var tableRef = document.getElementById('book_table');
+        var newRow = tableRef.insertRow(0);
 
-<a href="loggedIn.html" class="btn-small waves-effect waves-light"><i class="material-icons left">keyboard_backspace</i>Wróć</a><br><br>
+        var useruserCell = newRow.insertCell(0);
+        var messageCell = newRow.insertCell(1);
+
+        useruserCell.appendChild(document.createTextNode(user.displayName));
+        messageCell.appendChild(document.createTextNode(message));
+    }
+
+    function feedBookTable(){
+        var user = firebase.auth().currentUser;
+        firebase.database().ref('messages/' + user.uid + '/conversation/').on("child_added", function(snapshot, prevChildKey) {
+            var newBook = snapshot.val();
+            appendRow(newBook.message);
+        });
+    }
+</script>
 </body>
 </html>
