@@ -121,6 +121,18 @@
         });
     }
 
+    function fTytul(x) {
+        wzorTytul = /[{1,}\S]/
+        if (!x.value.match(wzorTytul))
+            alert ("Wprowadź tytuł filmu!")
+    }
+
+    function fAutor(x) {
+        wzorAutor =/[{1,}\S]/
+        if (!x.value.match(wzorAutor))
+            alert ("Wprowadź autora książki!")
+    }
+
     function notify() {
         if (Notification.permission !== "granted")
             Notification.requestPermission();
