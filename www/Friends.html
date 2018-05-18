@@ -2,22 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Znajomi</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- Compiled and minified JavaScript -->
-    <script>
-        var query = window.location.search;
-
-        if (query.substring(0, 1) == '?') {
-            query = query.substring(1);
-        }
-        var data = query;
-        console.log(data);
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script>
         const config = {
             apiKey: "AIzaSyDR2IJ3Ea-4p2I1BQs7AuJDs0EjCEE4IAM",
@@ -29,80 +18,51 @@
         };
         firebase.initializeApp(config);
     </script>
+    <script src="js\md5.js"></script>
 </head>
-
 <body>
+<div id="friendForm" style="display:none">
+    <p>email:</p>
+    <input id="user_id" type="text" class="validate"  maxlength="50"/>
+    <p>nazwa:</p>
+    <input id="username" type="text" class="validate"  maxlength="50"/>
+    <button onclick="addFriend()" class="btn waves-effect waves-light">Dodaj znajomego</button>
+    <button onclick="friendFormCancel()" class="btn waves-effect waves-light">Anuluj</button>
+</div>
+
+<div id="friendFormButton">
+    <button onclick="addFriendForm()" class="btn waves-effect waves-light">Dodaj znajomego</button>
+</div>
 
 <div class="row">
     <div class="col s12">
+
         <table>
             <thead>
             <tr>
-                <th>Użytkownik</th>
-                <th>Wiadomość</th>
+                <th>Znajomi</th>
             </tr>
             </thead>
 
-            <tbody id="book_table">
+            <tbody id="friend_collection">
             </tbody>
         </table>
     </div>
 </div>
-<h5 style="color:dimgrey">Wiadomość</h5>
-<div class="row">
-    <div class="col s12">
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="message" type="text" class="validate"  />
-                <button onclick="addBook()" class="btn waves-effect waves-light">Dodaj książkę</button>
-                <label for="message">Wiadomość</label>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     run();
     function run() {
         setTimeout(wait, 2000);
     }
     function wait() {
-        feedBookTable();
+        feedFriendList()
     }
 
-    function addBook(){
-        var user = firebase.auth().currentUser;
-        var message = document.getElementById('message').value;
-
-        console.log(message);
-
-        firebase.database().ref('messages/' + user.uid + '/conversation/' + md5(message)).set({
-            message: message,
-            //useruser: useruser
-
-        })
-
-        console.log("Book saved to firebase database");
-    }
-
-    function appendRow(message){
-        var user = firebase.auth().currentUser;
-        var tableRef = document.getElementById('book_table');
-        var newRow = tableRef.insertRow(0);
-
-        var useruserCell = newRow.insertCell(0);
-        var messageCell = newRow.insertCell(1);
-
-        useruserCell.appendChild(document.createTextNode(user.displayName));
-        messageCell.appendChild(document.createTextNode(message));
-    }
-
-    function feedBookTable(){
-        var user = firebase.auth().currentUser;
-        firebase.database().ref('messages/' + user.uid + '/conversation/').on("child_added", function(snapshot, prevChildKey) {
-            var newBook = snapshot.val();
-            appendRow(newBook.message);
-        });
+    function friendFormCancel() {
+        form = document.getElementById('friendForm');
+        form.style.display = 'none';
+        btn = document.getElementById('friendFormButton');
+        btn.style.display = 'initial';
     }
 </script>
 </body>
