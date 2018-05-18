@@ -1,7 +1,6 @@
 ## Strona główna aplikacji Moja biblioteka
-![Some text]({{site.url}}{{site.baseurl}}/www/assets/logo1.png)
 
-![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/logo1.png)
+<img src="https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/logo1.png">
 
 ## Spis Treści
 1. Opis aplikacji
