@@ -90,10 +90,6 @@
             return;
         }
 
-        if (!mail.endsWith("@gmail.com")) {
-            alert("Błędny adres e-mail!");
-            return;
-        }
         firebase.database().ref('chat/contacts/' + user.uid + '/' + username ).set({
                 username:username,
                 mail:mail

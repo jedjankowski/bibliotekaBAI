@@ -2,7 +2,12 @@ tr {
     border-bottom-color: white !important;
 }
 
+html {
+    min-height: 100%;
+}
+
 body {
+    min-height: 100%;
     background-image: url(../img/libraryrr.jpg);
     background-attachment: fixed;
     background-position: center;
