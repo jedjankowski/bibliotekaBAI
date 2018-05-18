@@ -31,19 +31,19 @@
     <div class="col s12">
         <div class="row">
             <div class="input-field col s12">
-                <input id="book_title" type="text" class="validate"  maxlength="50" onblur="fTytul(this)"/>
+                <input id="book_title" type="text" class="validate"  maxlength="50"/>
                 <label style="color: #eceff1" for="book_title">Tytuł</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="author" type="text" class="validate" maxlength="30" onblur="fAutor(this)"/>
+                <input id="author" type="text" class="validate" maxlength="30"/>
                 <label style="color: #eceff1" for="author">Autor</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="description" type="text" class="validate" maxlength="140" onblur="fOpis(this)"/>
+                <input id="description" type="text" class="validate" maxlength="140"/>
                 <label style="color: #eceff1" for="description">Opis</label>
             </div>
         </div>
@@ -124,24 +124,37 @@
     }
 
     function addBook(){
-        var user = firebase.auth().currentUser;
-        var date = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+        var author = document.getElementById('author');
+        var bookTitle = document.getElementById('book_title');
+        var description = document.getElementById('description');
 
-        var title = document.getElementById('book_title').value;
-        var author = document.getElementById('author').value;
-        var description = document.getElementById('description').value;
-        var genre = document.getElementById('genre');
-        genre = genre.options[genre.selectedIndex].innerHTML;
-        var score = document.getElementById('score');
-        score = score.options[score.selectedIndex].innerHTML;
+        wzorTytul = /[{1,}\S]/;
+        if (!bookTitle.value.match(wzorTytul)) {
+            alert("Wprowadź tytuł książki!");
+        } else if (!author.value.match(wzorTytul)) {
+            alert("Wprowadź autora!");
+        } else if (!description.value.match(wzorTytul)) {
+            alert("Wprowadź opis!");
+        } else {
 
-        console.log(title);
-        console.log(author);
-        console.log(description);
-        console.log(genre);
-        console.log(score);
+            var user = firebase.auth().currentUser;
+            var date = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
 
-        firebase.database().ref('users/' + user.uid + '/books/'+md5(title)).set({
+            var title = document.getElementById('book_title').value;
+            var author = document.getElementById('author').value;
+            var description = document.getElementById('description').value;
+            var genre = document.getElementById('genre');
+            genre = genre.options[genre.selectedIndex].innerHTML;
+            var score = document.getElementById('score');
+            score = score.options[score.selectedIndex].innerHTML;
+
+            console.log(title);
+            console.log(author);
+            console.log(description);
+            console.log(genre);
+            console.log(score);
+
+            firebase.database().ref('users/' + user.uid + '/books/' + md5(title)).set({
                 title: title,
                 author: author,
                 description: description,
@@ -149,8 +162,9 @@
                 score: score,
                 date: date
 
-        })
-        console.log("Book saved to firebase database");
+            });
+            console.log("Book saved to firebase database");
+        }
     }
 
     function appendRow(title, author, description, genre, score, date){
@@ -178,24 +192,6 @@
             var newBook = snapshot.val();
             appendRow(newBook.title, newBook.author, newBook.description, newBook.genre, newBook.score, newBook.date);
         });
-    }
-
-    function fTytul(x) {
-        wzorTytul = /[{1,}\S]/
-        if (!x.value.match(wzorTytul))
-            alert ("Wprowadź tytuł książki!")
-    }
-
-    function fAutor(x) {
-        wzorAutor =/[{1,}\S]/
-        if (!x.value.match(wzorAutor))
-            alert ("Wprowadź autora książki!")
-    }
-
-    function fOpis(x) {
-        wzorOpis = /[{1,}\S]/
-        if (!x.value.match(wzorOpis))
-            alert("Wprowadź opis książki!")
     }
 </script>
 </body>
