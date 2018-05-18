@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <title>Znajomi</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script>
         const config = {
             apiKey: "AIzaSyDR2IJ3Ea-4p2I1BQs7AuJDs0EjCEE4IAM",
@@ -21,109 +18,79 @@
         };
         firebase.initializeApp(config);
     </script>
+    <script src="js\md5.js"></script>
 </head>
-
-
-<meta charset="UTF-8">
-<title>Znajomi</title>
-
-
-</head>
-
 <body>
-<a href="loggedIn.html" class="btn-small waves-effect waves-light"><i class="material-icons left">keyboard_backspace</i>Wróć</a><br><br>
-<h1> Panel społecznościowy </h1>
-<style>
-    h1 {
-        color: 3399 ff;
-        font-size: 22pt;
-        letter-spacing: 1pt;
-        font-family: arial;
+<div id="friendForm" style="display:none">
+    <p>email:</p>
+    <input id="user_id" type="text" class="validate"  maxlength="50"/>
+    <p>nazwa:</p>
+    <input id="username" type="text" class="validate"  maxlength="50"/>
+    <button onclick="addFriend()" class="btn waves-effect waves-light">Dodaj znajomego</button>
+    <button onclick="friendFormCancel()" class="btn waves-effect waves-light">Anuluj</button>
+</div>
+
+<div id="friendFormButton">
+    <button onclick="addFriendForm()" class="btn waves-effect waves-light">Dodaj znajomego</button>
+</div>
+
+<div class="row">
+    <div class="col s12">
+
+        <table>
+            <thead>
+            <tr>
+                <th>Znajomi</th>
+            </tr>
+            </thead>
+
+            <tbody id="friend_collection">
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    run();
+    function run() {
+        setTimeout(wait, 2000);
     }
-</style>
-<center>
-    <table border="4" bordercolor="#996699" cellpadding="4">
-        <caption align="top">Lista Twoich znajomych</caption>
-        <style> caption {
-            font-size: 16pt;
-            font-family: arial;
-            font-style: bold;
-        } </style>
-        <style> caption {
-            font-size: 16pt;
-            font-family: arial;
-            font-style: bold;
-        } </style>
-        <tr>
-            <th>Imie</th>
 
-            <style> td {
-                font-family: arial;
-                font-size: 12pt;
-            } </style>
-        </tr>
-        <tr>
-            <th>Nazwisko</th>
-            <style> th {
-                font-family: arial;
-                font-style: bold;
-                font-size: 14pt;
-            }</style>
-        </tr>
-    </table>
-    <style> table {
-        margin-top: 100px;
-    }</style>
-</center>
-<center>
-    <h2>
-        <input type="text" id="name" placeholder="Imie"><br/>
-        <h3>
-            <input type="password" id="surname" placeholder="Nazwisko"><br/>
-        </h3>
-        <style>h3 {
-            margin-top: -8px;
-        }</style>
-        <input type="button" value="Dodaj znajomego" onClick="clicked()">
-    </h2>
-    <style>h2 {
-        margin-top: 40px;
-    }</style>
-</center>
 
-</center>
+    function friendFormCancel() {
+        form = document.getElementById('friendForm');
+        form.style.display = 'none';
+        btn = document.getElementById('friendFormButton');
+        btn.style.display = 'initial';
+    }
 
-<h4>
-    Poleć ksiązke znajomemu
-</h4>
+    function addFriendForm() {
+        form = document.getElementById('friendForm');
+        form.style.display = 'initial';
+        btn = document.getElementById('friendFormButton');
+        btn.style.display = 'none';
+    }
+    function feedFriendList() {
+        var user = firebase.auth().currentUser;
+        firebase.database().ref('chat/contacts/' + user.uid ).on ("child_added", function(snapshot, prevChildKey) {
+            var friends = snapshot.val();
+            appendRow(friends.username, friends.mail);
+        });
+    }
+    function appendRow(friend, email) {
+        var username = document.getElementById('username').value;
 
-<div class="row">
-    <div class="input-field col s12">
-        <label>Znajomy</label><br><br>
-        <select id="genre" class="browser-default" required>
-            <option value="" disabled selected>Wybierz Znajomego</option>
-            <option value="1">Znajomy1</option>
-            <option value="2">Znajomy2</option>
-            <option value="3">Znajomy3</option>
-        </select>
-    </div>
-</div>
+        var tableRef = document.getElementById('friend_collection');
+        var newRow = tableRef.insertRow(0);
 
-<div class="row">
-    <div class="input-field col s12">
-        <label>Ksiązka</label><br><br>
-        <select  class="browser-default" required>
-            <option value="" disabled selected>Wybierz Ksiązke</option>
-            <option value="1">Ksiązka1</option>
-            <option value="2">Ksiązka2</option>
-            <option value="3">Ksiązka3</option>
-        </select>
-    </div>
-</div>
-<h6><input type="button" value="Polecam" onClick="clicked()">
+        var div = newRow.insertCell(0);
 
-</h6>
+        div.innerHTML = '<div class="collection">' +
+            '<a style="cursor:pointer" onclick="openChat(this)" class="collection-item">' + friend + '</a>' +
+            '</div>';
+    }
+    function openChat(e) {
 
-<a href="loggedIn.html" class="btn-small waves-effect waves-light"><i class="material-icons left">keyboard_backspace</i>Wróć</a><br><br>
+    }
+</script>
 </body>
 </html>

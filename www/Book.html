@@ -128,7 +128,8 @@
         var title = document.getElementById('book_title').value;
         var author = document.getElementById('author').value;
         var description = document.getElementById('description').value;
-        var genre = document.getElementById('genre').value;
+        var genre = document.getElementById('genre');
+        genre = genre.options[genre.selectedIndex].innerHTML;
         var score = document.getElementById('score').value;
 
         console.log(title);
@@ -179,7 +180,7 @@
     function fTytul(x) {
         wzorTytul = /[{1,}\S]/
         if (!x.value.match(wzorTytul))
-            alert ("Wprowadź tytuł filmu!")
+            alert ("Wprowadź tytuł książki!")
     }
 
     function fAutor(x) {
