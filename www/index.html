@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta charset="UTF-8">
     <title>Moja biblioteka</title>
 
@@ -8,7 +9,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
-
+    <script>
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            console.log("window.open works well");
+        }
+    </script>
     <script>
         // Initialize Firebase
         var config = {
@@ -25,10 +31,6 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.7.0/firebaseui.css" />
     <script type="text/javascript">
         // FirebaseUI config.
-        document.addEventListener("deviceready", onDeviceReady, false);
-        function onDeviceReady() {
-            window.open = cordova.InAppBrowser.open;
-        }
         var uiConfig = {
 
             //odnosnik do strony, ktora sie otworzy po zalogowaniu

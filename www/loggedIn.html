@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        body {
+            background-image: url(img/libraryrr.jpg);
+            background-attachment: fixed;
+            background-position: center;
+        }
+        img {
+            -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(100%);
+        }
+    </style>
     <meta charset="UTF-8">
     <title>Main</title>
 
@@ -22,11 +33,11 @@
         firebase.initializeApp(config);
     </script>
 </head>
-<body>
+<body class="body">
 <script>
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            document.body.innerHTML = '<h5 style="color:dimgrey; text-align:center;">' + 'Witaj, ' + user.displayName +
+            document.body.innerHTML = '<h5 style="color:#eceff1; text-align:center;">' + 'Witaj, ' + user.displayName +
                 '<br>' + 'Twój e-mail to: ' + user.email + '</h5>' +
                 '<p class="center-align">\n' +
                 '<a href="Book.html" style="width:220px;" class="btn-large waves-effect waves-light z-depth-4"><i class="material-icons right">library_books</i>Książki</a>' + '<br><br>' +
