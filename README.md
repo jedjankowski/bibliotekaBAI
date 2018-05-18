@@ -1,5 +1,5 @@
 ## Strona główna aplikacji Moja biblioteka
-![useful image]({{https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/assets/logo1.png }}/assets/logo1.png)
+![useful image]({{site.url}}www/assets/logo1.png)
 ![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/logo1.png)
 
 ## Spis Treści
