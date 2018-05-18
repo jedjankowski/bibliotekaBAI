@@ -1,6 +1,6 @@
 ## Strona główna aplikacji Moja biblioteka
 
-<img src="https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/logo1.png">
+<img src="https://raw.githubusercontent.com/jedjankowski/bibliotekaBAI/blob/master/www/img/logo1.png">
 
 ## Spis Treści
 1. Opis aplikacji
