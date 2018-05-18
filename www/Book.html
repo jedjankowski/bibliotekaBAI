@@ -69,16 +69,17 @@
             <div class="input-field col s12">
                 <select id="score" class="browser-default">
                     <option value="" disabled selected>Ocena</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
+                    <option value="1">Chcę przeczytać</option>
+                    <option value="2">1</option>
+                    <option value="3">2</option>
+                    <option value="4">3</option>
+                    <option value="5">4</option>
+                    <option value="6">5</option>
+                    <option value="7">6</option>
+                    <option value="8">7</option>
+                    <option value="9">8</option>
+                    <option value="10">9</option>
+                    <option value="11">10</option>
                 </select>
             </div>
         </div>
@@ -130,7 +131,8 @@
         var description = document.getElementById('description').value;
         var genre = document.getElementById('genre');
         genre = genre.options[genre.selectedIndex].innerHTML;
-        var score = document.getElementById('score').value;
+        var score = document.getElementById('score');
+        score = score.options[score.selectedIndex].innerHTML;
 
         console.log(title);
         console.log(author);
