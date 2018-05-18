@@ -1,6 +1,6 @@
 ## Strona główna aplikacji Moja biblioteka
 
-<img src="https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/logo1.png">
+<img src="https://raw.githubusercontent.com/jedjankowski/bibliotekaBAI/master/www/img/logo1.png">
 
 ## Spis Treści
 1. Opis aplikacji
@@ -29,11 +29,10 @@ Prototyp aplikacji został zaprojektowany poprzez Marvelapp
 [Prototyp aplikacji](https://marvelapp.com/16c315gg)
 
 Przykładowe
-
-![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/prototyp1.png)
-![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/prototyp2.png)
-![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/prototyp3.png)
-![alt text](https://github.com/jedjankowski/bibliotekaBAI/blob/master/www/img/prototyp4.png)
+<img src="https://raw.githubusercontent.com/jedjankowski/bibliotekaBAI/master/www/img/prototyp1.png">
+<img src="https://raw.githubusercontent.com/jedjankowski/bibliotekaBAI/master/www/img/prototyp2.png">
+<img src="https://raw.githubusercontent.com/jedjankowski/bibliotekaBAI/master/www/img/prototyp3.png">
+<img src="https://raw.githubusercontent.com/jedjankowski/bibliotekaBAI/master/www/img/prototyp4.png">
 
 
 ### Uczestnicy projektu
