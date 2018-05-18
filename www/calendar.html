@@ -12,6 +12,9 @@
             -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
             filter: grayscale(100%);
         }
+        text, input, select, textarea{
+            color: #eceff1 !important;
+        }
     </style>
     <meta charset="UTF-8">
     <title>Wypożyczone książki</title>
@@ -36,19 +39,19 @@
 <body>
 
 <a href="loggedIn.html" class="btn-small waves-effect waves-light"><i class="material-icons left">keyboard_backspace</i>Wróć</a><br><br>
-<h5 style="color:dimgrey">Dodaj nową wypożyczoną ksiązkę</h5>
+<h5 style="color: #eceff1">Dodaj nową wypożyczoną ksiązkę</h5>
 <div class="row">
     <div class="col s12">
         <div class="row">
             <div class="input-field col s12">
                 <input id="book_title" type="text" class="validate"  maxlength="50" onblur="fTytul(this)">
-                <label for="book_title">Tytuł</label>
+                <label style="color: #eceff1" for="book_title">Tytuł</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <input id="author" type="text" class="validate" maxlength="30" onblur="fAutor(this)">
-                <label for="author">Autor</label>
+                <label style="color: #eceff1" for="author">Autor</label>
             </div>
         </div>
         <div class="row">
@@ -65,7 +68,7 @@
     </div>
 </div>
 
-<h5 style="color:dimgrey">Twoje wypożyczone książki</h5>
+<h5 style="color: #eceff1">Twoje wypożyczone książki</h5>
 <div class="row">
     <div class="col s12">
         <table>
@@ -82,7 +85,6 @@
         </table>
     </div>
 </div>
-<button onclick="notify()">PUSH</button>
 <br><br><a href="loggedIn.html" class="btn-small waves-effect waves-light"><i class="material-icons left">keyboard_backspace</i>Wróć</a>
 
 <script>
@@ -93,6 +95,8 @@
     function afterTwoSeconds() {
         feedBookTable();
     }
+
+
     function addDate(){
         var title = document.getElementById('book_title').value;
         var author = document.getElementById('author').value;
@@ -111,6 +115,7 @@
         console.log("Book and date saved to firebase database");
     }
 
+
     function appendRow(title, author, date){
         var tableRef = document.getElementById('borrow_table');
         var newRow = tableRef.insertRow(0);
@@ -124,6 +129,7 @@
         dateCell.appendChild(document.createTextNode(date));
     }
 
+
     function feedBookTable(){
         var user = firebase.auth().currentUser;
         firebase.database().ref('users/' + user.uid + '/returnDate/').on("child_added", function(snapshot, prevChildKey) {
@@ -132,28 +138,19 @@
         });
     }
 
+
     function fTytul(x) {
         wzorTytul = /[{1,}\S]/
         if (!x.value.match(wzorTytul))
             alert ("Wprowadź tytuł książki!")
     }
 
+
     function fAutor(x) {
         wzorAutor =/[{1,}\S]/
         if (!x.value.match(wzorAutor))
             alert ("Wprowadź autora książki!")
     }
-
-    function notify() {
-        if (Notification.permission !== "granted")
-            Notification.requestPermission();
-        else {
-            var bookReturn = new Notification('Moja biblioteka',
-                {body: "Zbliża się termin oddania książki"}
-            );
-        }
-    }
-
 </script>
 </body>
 </html>
