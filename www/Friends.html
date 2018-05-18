@@ -121,8 +121,69 @@
             '<a style="cursor:pointer" onclick="openChat(this)" class="collection-item">' + friend + '</a>' +
             '</div>';
     }
+       
+    
     function openChat(e) {
+        var td = e.parentElement.parentElement;
+        var divs = td.getElementsByTagName('div');
+        if(divs.length == 2) {
+            divs[1].parentElement.removeChild(divs[1]);
+        } else {
+            var insert = '<div><ul style="max-height: 200px;overflow-y: scroll"></ul><form onSubmit="sendMessage(this); return false;"><input type="text" placeholder="..." required><input type="submit" value="Wyślij" class="btn waves-effect waves-light"></form></div>';
+            td.innerHTML += insert;
+            var user = firebase.auth().currentUser;
 
+            var address = e.innerHTML;
+            firebase.database().ref('chat/contacts/' + user.uid).once('value', function (dataSnapshot) {
+                dataSnapshot.forEach(function (snapshot) {
+                    if(snapshot.key == address) {
+                        address = snapshot.child('mail').val();
+                    }
+                })
+            });
+
+            var ul = td.getElementsByTagName('ul')[0];
+
+            firebase.database().ref('chat/messages/' + md5(user.email) + '/' + md5(address)).on('child_added', function(dataSnapshot) {
+                var outgoing = dataSnapshot.child('outgoing').val();
+                var text = dataSnapshot.child('text').val();
+                //console.log(outgoing);
+                //console.log(text);
+                if(outgoing) {
+                    var name = user.displayName;
+                } else {
+                    var name = e.innerHTML;
+                }
+                var line = '<b>' + name + ': </b>' + text;
+                var li = document.createElement('li');
+                li.innerHTML = line;
+                ul.appendChild(li);
+                ul.scrollTop = ul.scrollHeight;
+                //td.getElementsByTagName('ul')[0].innerHTML = insert;
+            });
+        }
+    }
+
+    function sendMessage(e) {
+        var text = e.parentElement.getElementsByTagName('input')[0].value;
+        e.children[0].value='';
+        var td = e.parentElement.parentElement.parentElement;
+        var a = td.children[0].getElementsByTagName('a')[0];
+        var address = a.innerHTML;
+        var user = firebase.auth().currentUser;
+        firebase.database().ref('chat/contacts/' + user.uid).once('value', function (dataSnapshot) {
+            dataSnapshot.forEach(function (snapshot) {
+                if(snapshot.key == address) {
+                    address = snapshot.child('mail').val();
+                }
+            })
+        });
+
+        firebase.database().ref('chat/messages/' + md5(user.email) + '/' + md5(address)).push({outgoing:true,text:text});
+        firebase.database().ref('chat/messages/' + md5(address) + '/' + md5(user.email)).push({outgoing:false,text:text});
+
+        var ul = td.getElementsByTagName('ul')[0];
+        ul.scrollTop = ul.scrollHeight;
     }
 </script>
 </body>
