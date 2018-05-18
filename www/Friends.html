@@ -64,6 +64,37 @@
         btn = document.getElementById('friendFormButton');
         btn.style.display = 'initial';
     }
+
+    function addFriendForm() {
+        form = document.getElementById('friendForm');
+        form.style.display = 'initial';
+        btn = document.getElementById('friendFormButton');
+        btn.style.display = 'none';
+    }
+    function feedFriendList() {
+        var user = firebase.auth().currentUser;
+        firebase.database().ref('chat/contacts/' + user.uid ).on ("child_added", function(snapshot, prevChildKey) {
+            var friends = snapshot.val();
+            appendRow(friends.username, friends.mail);
+        });
+    }
+
+
+    function appendRow(friend, email) {
+        var username = document.getElementById('username').value;
+
+        var tableRef = document.getElementById('friend_collection');
+        var newRow = tableRef.insertRow(0);
+
+        var div = newRow.insertCell(0);
+
+        div.innerHTML = '<div class="collection">' +
+            '<a style="cursor:pointer" onclick="openChat(this)" class="collection-item">' + friend + '</a>' +
+            '</div>';
+    }
+    function openChat(e) {
+
+    }
 </script>
 </body>
 </html>
