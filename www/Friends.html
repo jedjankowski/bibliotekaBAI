@@ -54,8 +54,9 @@
     function run() {
         setTimeout(wait, 2000);
     }
-
-
+    function wait() {
+        feedFriendList()
+    }
     function friendFormCancel() {
         form = document.getElementById('friendForm');
         form.style.display = 'none';
