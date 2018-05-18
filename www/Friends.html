@@ -77,6 +77,38 @@
             appendRow(friends.username, friends.mail);
         });
     }
+       function addFriend() {
+        var user = firebase.auth().currentUser;
+        var mail = document.getElementById('user_id').value;
+        var username = document.getElementById('username').value;
+
+        console.log(mail);
+
+        if (mail === user.email) {
+            alert("Nie możesz dodać siebie do znajomych!");
+            return;
+        }
+
+        if (!mail.endsWith("@gmail.com")) {
+            alert("Błędny adres e-mail!");
+            return;
+        }
+        firebase.database().ref('chat/contacts/' + user.uid + '/' + username ).set({
+                username:username,
+                mail:mail
+        });
+        console.log("znajomy dodany do bazy danych")
+
+        document.getElementById('user_id').value = '';
+        document.getElementById('username').value = '';
+
+        form = document.getElementById('friendForm');
+        form.style.display = 'none';
+        btn = document.getElementById('friendFormButton');
+        btn.style.display = 'initial';
+    }
+
+
     function appendRow(friend, email) {
         var username = document.getElementById('username').value;
 
