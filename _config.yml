@@ -1,2 +1,3 @@
 theme: jekyll-theme-modernist
-url: "https://jedjankowski.github.io/bibliotekaBAI/"
+baseurl: "/bibliotekaBAI"
+url: "https://jedjankowski.github.io/"
