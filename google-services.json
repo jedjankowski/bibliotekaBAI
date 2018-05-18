@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "726560257409",
+    "firebase_url": "https://baiprojekt-54e2b.firebaseio.com",
+    "project_id": "baiprojekt-54e2b",
+    "storage_bucket": "baiprojekt-54e2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726560257409:android:47df05ab76319c5d",
+        "android_client_info": {
+          "package_name": "com.BAIprojekt.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726560257409-mdd7pp5lcer3dhi57kd4llhnthv107lq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnJcce0CFeFi9qAkR_rvHeKlrCUId55Qc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
