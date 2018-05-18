@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <widget id="com.example.hello" version="0.0.1">
     <name>Moja biblioteka</name>
     <description>
@@ -27,17 +28,14 @@
     <plugin name="cordova-plugin-buildinfo" spec="^2.0.1" />
     <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />
     <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
-    <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
-    <plugin name="cordova-plugin-firebase" version="1.0.0"/>
-
+    <plugin name="cordova-plugin-firebase" version="1.0.0" />
     <universal-links>
         <host name="ct27s.app.goo.gl" scheme="https" />
         <host name="baiprojekt-54e2b.firebaseapp.com" scheme="https">
-            <path url="/__/auth/callback"/>
+            <path url="/__/auth/callback" />
         </host>
     </universal-links>
     <preference name="AndroidLaunchMode" value="singleTask" />
     <plugin name="cordova-plugin-device" spec="~1.1.4" />
-
-
+    <plugin name="cordova-plugin-inappbrowser" spec="~3.0.0" />
 </widget>
